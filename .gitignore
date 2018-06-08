@@ -1,0 +1,14 @@
+# Do not track
+
+.TOOLS/
+decompiled/
+output/
+misc/
+tools/frameworks/
+tools/work_temp/
+input/*.apk
+input/*.jar
+zipalign/*.apk
+zipalign/*.jar
+tools/tag_list
+x
