@@ -1,4 +1,4 @@
-## APK Utility v1.0
+## APK Utility v2.0
 ![image](tools/menu.png)
 
 APK Utility is for decompiling, compiling, zipaligning, and signing apk and jar files. The utility also has the ability to tag your frameworks. This is a very good feature if you want to install frameworks for multiple different devices without having to remove one for the other.
@@ -7,7 +7,7 @@ APK Utility is for decompiling, compiling, zipaligning, and signing apk and jar 
 - [apktool](https://ibotpeaches.github.io/Apktool/)
 
 ## Usage
-Tested on Xubuntu
+Tested on ubuntu & xubuntu
 For 64 bit systems only
 
 1. Make sure to have java installed.
