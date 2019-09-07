@@ -1,3 +1,7 @@
+**September 7, 2019**
+- Version 2.2
+- Added new project page
+
 **March 13, 2019**
 - Apk Utility v2.1
 - New apktool.jar v2.4.0

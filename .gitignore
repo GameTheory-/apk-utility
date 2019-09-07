@@ -11,4 +11,7 @@ input/*.jar
 zipalign/*.apk
 zipalign/*.jar
 tools/tag_list
+*.zip
+Instructions
+apk-utility
 x
