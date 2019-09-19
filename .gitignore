@@ -13,5 +13,5 @@ zipalign/*.jar
 tools/tag_list
 *.zip
 Instructions
-apk-utility
+apk-utility/
 x

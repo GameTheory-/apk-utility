@@ -1,3 +1,7 @@
+**September 19, 2019**
+- Version 2.3
+- Source code now available
+
 **September 7, 2019**
 - Version 2.2
 - Added new project page
