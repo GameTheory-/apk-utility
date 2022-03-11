@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # ===== Variables
-VERSION="APK Utility v2.3"
-PROJECT_NAME="APK Utility"
+PROJECT_NAME="Apk Utility"
+VERSION="$PROJECT_NAME v2.4"
 DESCRIPTION="An APK & JAR Manipulation Utility"
 
 BASE=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
@@ -221,7 +221,7 @@ Enter selection: "
 						fi
 					done
 				else
-					echo -e "${HRED}You do not have any installed tagged frameworks.${NC}"
+					echo -e "${HRED}You do not have any installed tagged framework files.${NC}"
 				fi
 				break
 			else
@@ -277,7 +277,7 @@ Enter selection: "
 						fi
 					done
 				else
-					echo -e "${HRED}You do not have any installed tagged frameworks.${NC}"
+					echo -e "${HRED}You do not have any installed tagged framework files.${NC}"
 				fi
 				break
 			else
@@ -309,7 +309,7 @@ Enter selection:"
 				break
 			elif (( REPLY > 0 && REPLY <= ${#OPTIONS[@]} )) ; then
 				clear
-				"$APKTOOL" b -f "$OPT" -p "$FRAMEWORKS_DIR"
+				"$APKTOOL" b --use-aapt2 -f "$OPT" -p "$FRAMEWORKS_DIR"
 				if [ -f "$OPT"/dist/*.apk ] || [ -f "$OPT"/dist/*.jar ]; then
 					FILE=$(find "$OPT"/dist -type f -name "*.*")
 					if [ ! -z "$FILE" ]; then
@@ -355,11 +355,12 @@ CompileSign() {
 	if ls -d "$DECOMPILED_DIR"/* > /dev/null 2>&1; then
 		OutputDir
 		cd "$DECOMPILED_DIR"
-		echo -e "${GREEN}This option uses the original META-INF and AndroidManifest.xml"
-		echo "for proper signing. If you made changes to the AndroidManifest.xml"
-		echo "those changes will be lost. Use option 5 instead to keep those changes."
+		echo -e "${GREEN}This option uses the original ${HRED}META-INF${NC} ${GREEN}and${NC} ${HRED}AndroidManifest.xml${NC}"
+		echo -e "${GREEN}for proper signing. If you made changes to the AndroidManifest.xml"
+		echo "those changes will be lost. Use option 5 instead from the main menu"
+		echo "to keep those changes."
 		echo ""
-		echo -e "Make selection to compile.${NC}"
+		echo -e "Make selection to compile:${NC}"
 		PROMPT="
 Enter selection:"
 		OPTIONS=( $(ls -d "$DECOMPILED_DIR"/* | xargs -d '\n' -n 1 basename) )
@@ -373,7 +374,7 @@ Enter selection:"
 				break
 			elif (( REPLY > 0 && REPLY <= ${#OPTIONS[@]} )) ; then
 				clear
-				"$APKTOOL" b -f "$OPT" -p "$FRAMEWORKS_DIR"
+				"$APKTOOL" b --use-aapt2 -f "$OPT" -p "$FRAMEWORKS_DIR"
 				if [ -d $OPT/dist ]; then
 					if [ -f $OPT/dist/*.apk ]; then
 						LS_APK=$("$TOOL_7ZA" l "$INPUT_DIR"/$(basename $OPT).apk)
@@ -491,9 +492,11 @@ Enter selection:"
 				break
 			elif (( REPLY > 0 && REPLY <= ${#OPTIONS[@]} )) ; then
 				clear
-				echo -e "${GREEN}Enter a tag with no spaces or special characters."
-				echo "If your device has multiple frameworks, repeat this"
-				echo -e "using the same tag. Example tag: ${HRED}${BOLD}HTCm8${NC}"
+				echo -e "${GREEN}Adding tags(labels) to your framework files allows"
+				echo "you to work with multiple devices without confusion."
+				echo "Enter a tag with no spaces or special characters."
+				echo "If your device has multiple framework files, repeat this"
+				echo -e "step using the same tag. Example tag: ${HRED}SamsungS22${NC}"
 				echo ""
 				read -e -p "Enter a framework tag: " TAG
 				echo ""
@@ -725,16 +728,16 @@ until [ "$SELECTION" = "0" ]; do
 	  clear
 	  echo -e "${BLUEBG}${EXPND}${WHITE}${BOLD}$NAME_TXT${NC}"
     echo ""
-    echo "	1   -  Decompile"
-    echo "	2   -  Decompile without dex(smali)"
-    echo "	3   -  Decompile with Tag"
-    echo "	4   -  Decompile with Tag without dex(smali)"
-    echo "	5   -  Compile"
-    echo "	6   -  Compile + Sign with original signature"
-    echo "	7   -  Install Framework"
-    echo "	8   -  Install Framework with Tag"
+    echo "	1   -  Install Framework"
+    echo "	2   -  Install Framework + Tag"
+    echo "	3   -  Decompile"
+    echo "	4   -  Decompile without dex files"
+    echo "	5   -  Decompile + Tag"
+    echo "	6   -  Decompile + Tag without dex files"
+    echo "	7   -  Compile"
+    echo "	8   -  Compile + Sign with original signature"
     echo "	9   -  Zipalign"
-    echo "	10  -  Sign/Change original signature of apk/jar"
+    echo "	10  -  Sign apk or jar with generic signature"
     echo "	11  -  Manage Tags"
 	  echo "	12  -  Check For Update"
 	  echo "	13  -  Add Desktop Shortcut"
@@ -744,14 +747,14 @@ until [ "$SELECTION" = "0" ]; do
     read SELECTION
     echo ""
     case $SELECTION in
-        1 ) clear ; Decomp ; PRESS_ENTER ;;
-        2 ) clear ; DecompD ; PRESS_ENTER ;;
-        3 ) clear ; DecompTag ; PRESS_ENTER ;;
-        4 ) clear ; DecompTagD ; PRESS_ENTER ;;
-		    5 ) clear ; Compile ; PRESS_ENTER ;;
-		    6 ) clear ; CompileSign ; PRESS_ENTER ;;
-		    7 ) clear ; FrameInst ; PRESS_ENTER ;;
-		    8 ) clear ; FrameInstTag ; PRESS_ENTER ;;
+				1 ) clear ; FrameInst ; PRESS_ENTER ;;
+		    2 ) clear ; FrameInstTag ; PRESS_ENTER ;;
+        3 ) clear ; Decomp ; PRESS_ENTER ;;
+        4 ) clear ; DecompD ; PRESS_ENTER ;;
+        5 ) clear ; DecompTag ; PRESS_ENTER ;;
+        6 ) clear ; DecompTagD ; PRESS_ENTER ;;
+		    7 ) clear ; Compile ; PRESS_ENTER ;;
+		    8 ) clear ; CompileSign ; PRESS_ENTER ;;
 		    9 ) clear ; WorkDir ; ZipFile ; PRESS_ENTER ;;
         10 ) clear ; SignK ; PRESS_ENTER ;;
         11 ) clear ; MANAGE_TAGS ; PRESS_ENTER ;;
